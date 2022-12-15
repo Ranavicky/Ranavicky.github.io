@@ -23,7 +23,8 @@
                 🅼🅾🆅🅸🅴-🆃🆁🅴🅰🆂🆄🆁🅴
 
             </h1>
-            <br><br>
+            <br>
+            <p><b>NOTE : </b>To Get the full functionality of the website kindly visit site settings and remove default setting of insecure content. </p>
             <form autocomplete="off" id="movieForm">
                 <div class="form-group">
                     <label style=" font-family: Baskerville" for="Movie">ENTER A MOVIE NAME</label>
@@ -33,7 +34,13 @@
                     <button    style="background-color:green; border-color:red; color:white" class="btn btn-danger btn-block">Search Movie</button>
                 </div>
             </form>
+            <div id="result2">
+
+            </div>
             <div id="result"></div>
+            <div id="result2">
+
+            </div>
 
         </div>
     </body>
@@ -46,12 +53,27 @@
                 event.preventDefault()
                 var movie=$("#movie").val()
                 var result =""
+                var result2= "" 
                 var url="http://www.omdbapi.com/?apikey="+apikey
               $.ajax({
                 method:'GET',
                 url:url+"&t="+movie,
+            
+     
+  
                 success:function(data){
                     console.log(data)
+                  ///  console.log(result2)
+                  var temp= data.Response
+                    if( temp === "False") {
+                     let result2=  ` <h2 ><b>OOPS!!!.. &#128533;</b>Please check the spelling and try again.</h2>`
+                
+                        console.log("Movie Not Found")
+                        $("#result2").html(result2)
+
+                    }
+                else{
+            
                     result=`
                    <img src="${data.Poster}" style="float:left,padding-right:20px" class="img-thumnail" width="550" height="550"/>
                    <br><br>
@@ -69,6 +91,19 @@
                     `
                     $("#result").html(result)
                 }
+                }
+      
+     /* result2=`
+  <h2 ><b>OOPS!!!.. &#128533;</b>Please check the spelling and try again.</h2>
+
+      `
+     $("#result2").html(result2)
+  }*/
+                    
+                   
+                
+                 
+
               })
 
             })
